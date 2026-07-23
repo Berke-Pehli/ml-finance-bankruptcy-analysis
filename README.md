@@ -158,8 +158,7 @@ ml-finance-bankruptcy-analysis/
 │   ├── tables/
 │   └── paper/
 ├── reports/
-│   ├── paper/
-│   └── presentation/
+│   └── paper/
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -228,12 +227,11 @@ for notebook in notebooks/0*.ipynb; do
 done
 ```
 
-## Paper and Presentation
+## Paper
 
 - [Compiled paper PDF](reports/paper/Berke_Pehlivan.pdf)
 - [Paper LaTeX source](reports/paper/Berke_Pehlivan.tex)
 - [Paper source directory](reports/paper/)
-- [Presentation slides](reports/presentation/bankruptcy_prediction_presentation_refined.pptx)
 
 ## Reproducibility Notes
 

@@ -95,7 +95,7 @@
   \vspace{0.3cm}
   {\normalsize Machine Learning for Finance\par}
   {\normalsize University of Bonn\par}
-  {\normalsize Instructor: Ivan Gufler Ph.D.\par}
+  {\normalsize Instructor: Ivan Gufler, Ph.D.\par}
   {\normalsize Academic Year 2025/2026\par}
   \vfill
 \end{titlepage}
@@ -179,10 +179,12 @@ tree-based models in a reproducible way and avoids company overlap between the
 training and test data. Second, it uses metrics that focus on the failed class
 and keeps the final test set separate for the main comparison. Third, it
 connects the model results to financial screening by discussing classification
-errors, threshold trade-offs, coefficients, and feature importance. The results
-are interpreted as predictive associations rather than causal effects. The
-project is intended as an educational model comparison and not as a system for
-automatic credit or investment decisions.
+errors, threshold trade-offs, coefficients, and feature importance. The linked
+GitHub repository contains the notebooks, data, and saved outputs needed to
+reproduce the tables and figures. The results are interpreted as predictive
+associations rather than causal effects. The project is intended as an
+educational model comparison and not as a system for automatic credit or
+investment decisions.
 
 \section{Data}
 \label{sec:data}
@@ -327,11 +329,12 @@ for the threshold analysis. The final test set is not used for model selection
 or validation threshold analysis.
 
 The final evaluation uses the fitted models from the inner model-fitting sample.
-The validation rows are not added back for a final refit. This means that the
-final models are fitted with fewer observations than they could have used. It is also less
-data-efficient than refitting the selected specification on all non-test
-training rows. That alternative was not used here, and this point is considered
-again in the limitations section.
+The validation rows are not added back for a final refit. This keeps the final
+test comparison tied to the same fitted models that were chosen during
+validation. The cost is that the final models use fewer observations than they
+could have used. Refitting the selected specification on all non-test training
+rows would be more data-efficient, but that alternative was not used here. This
+point is considered again in the limitations section.
 
 All random model components use the same seed. The implementation uses
 scikit-learn pipelines and estimators \citep{pedregosa2011}. Pipelines are
@@ -527,7 +530,8 @@ predictions for Logistic Regression, Random Forest, and Gradient Boosting. The
 analysis considers three rules: the threshold with the highest failed-class
 F1-score, the highest-precision threshold that still reaches at least 60\%
 failed recall, and the corresponding rule for at least 80\% failed recall.
-These rules show what happens when failure detection receives more weight.
+These are simple scenarios rather than recommended operating rules. They show
+what happens when failure detection receives more weight.
 
 The final test set is not used to choose a threshold. To keep the main model
 comparison consistent, the reported final-test classifications use each
@@ -563,14 +567,15 @@ zero. This confirms that accuracy alone gives the wrong impression in this
 imbalanced problem.
 
 No model is strongest on every measure. Logistic Regression has the highest
-failed recall at 0.884, but its failed precision is only 0.095. Random Forest
-has the numerically highest observed final-test PR-AUC among the models shown
-at 0.159 and the highest failed-class F1-score at 0.232. This result was
-observed on the final test set and does not change the earlier model-selection
-decision. Gradient Boosting has the highest
-balanced accuracy at 0.638 and an intermediate recall of 0.590. The ROC-AUC
-values of the three models are close, ranging from 0.688 to 0.699. Overall, the
-models perform differently depending on the metric being considered.
+failed recall at 0.884, but its failed precision is only 0.095. In plain terms,
+it catches many failures by flagging many firms. Random Forest has the
+numerically highest observed final-test PR-AUC among the models shown at 0.159
+and the highest failed-class F1-score at 0.232. This result was observed on the
+final test set and does not change the earlier model-selection decision.
+Gradient Boosting has the highest balanced accuracy at 0.638 and an
+intermediate recall of 0.590. The ROC-AUC values of the three models are close,
+ranging from 0.688 to 0.699. Overall, the models perform differently depending
+on the metric being considered.
 
 \subsection{Classification trade-offs}
 
@@ -780,12 +785,13 @@ additional conclusions about final-test performance.
 \section{Critical Reflection and Limitations}
 \label{sec:limitations}
 
-The project includes several choices that strengthen the analysis. Splitting by company prevents the
-same firm from appearing in both training and test data. Keeping the test set
-separate from model selection and threshold analysis also makes the final
-comparison more reliable. Finally, the majority baseline and failed-class
-metrics expose weaknesses that would be hidden by accuracy. These choices
-improve the analysis, but they do not remove the following limitations.
+The project includes several choices that strengthen the analysis. Splitting by
+company prevents the same firm from appearing in both training and test data.
+Keeping the test set separate from model selection and threshold analysis also
+makes the final comparison more reliable. Finally, the majority baseline and
+failed-class metrics expose weaknesses that would be hidden by accuracy. These
+choices make the comparison cleaner, but they do not remove the following
+limitations.
 
 \subsection{Data and target limitations}
 
@@ -857,14 +863,14 @@ educational study and screening exercise. It is not production-ready.
 
 \subsection{Priorities for future work}
 
-The first improvement would be to define a clear forward failure horizon and
-use rolling or chronological evaluation. Repeated company-grouped validation
-and uncertainty intervals would show whether model differences are stable.
-Financial ratios and trends could reduce the influence of firm size, while
-industry and macroeconomic variables could add context. After model selection,
-probability calibration should be tested, and the threshold should be chosen
-using explicit financial costs and review capacity. These improvements would be
-more useful than simply adding another complex model.
+The most important improvement would be to define a clear forward failure
+horizon and use rolling or chronological evaluation. Repeated company-grouped
+validation and uncertainty intervals would show whether model differences are
+stable. Financial ratios and trends could reduce the influence of firm size,
+while industry and macroeconomic variables could add context. After model
+selection, probability calibration should be tested, and the threshold should be
+chosen using explicit financial costs and review capacity. These improvements
+would be more useful than simply adding another complex model.
 
 \section{Conclusion}
 \label{sec:conclusion}
