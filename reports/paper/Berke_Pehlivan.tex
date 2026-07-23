@@ -8,7 +8,7 @@
 \usepackage[english]{babel}
 \usepackage{lmodern}
 \usepackage{microtype}
-\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[a4paper,margin=2.0cm]{geometry}
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -44,9 +44,9 @@
   justification=centering
 }
 
-\setstretch{1.10}
+\setstretch{1.03}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0.35em}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -59,12 +59,17 @@
   pdfsubject={Machine Learning for Finance research paper}
 }
 
+\newcommand{\repositoryurl}{https://github.com/Berke-Pehli/ml-finance-bankruptcy-analysis}
+
 % -----------------------------------------------------------------------------
 % Title information
 % -----------------------------------------------------------------------------
 \title{\textbf{Corporate Bankruptcy Risk Prediction\\with Machine Learning}\\[0.6em]
 \large Comparing Interpretable Logistic Regression and Tree-Based Models}
 \author{Berke Pehlivan\\
+\small Matriculation No.: 50266988\\
+\small Institutional email: \href{mailto:s36bpehl@uni-bonn.de}{s36bpehl@uni-bonn.de}\\
+\small GitHub repository: \url{\repositoryurl}\\
 \small Machine Learning for Finance\\
 \small University of Bonn}
 \date{Academic Year 2025/2026}
@@ -84,6 +89,10 @@
   \vfill
   {\large Berke Pehlivan\par}
   \vspace{0.3cm}
+  {\normalsize Matriculation No.: 50266988\par}
+  {\normalsize Institutional email: \href{mailto:s36bpehl@uni-bonn.de}{s36bpehl@uni-bonn.de}\par}
+  {\normalsize GitHub repository: \url{\repositoryurl}\par}
+  \vspace{0.3cm}
   {\normalsize Machine Learning for Finance\par}
   {\normalsize University of Bonn\par}
   {\normalsize Instructor: Ivan Gufler Ph.D.\par}
@@ -91,42 +100,6 @@
   \vfill
 \end{titlepage}
 
-\pagenumbering{roman}
-
-\begin{abstract}
-This paper examines whether financial statement variables can help distinguish
-failed from alive company-year observations. The analysis focuses on
-classification and does not make causal claims or test a clearly defined future
-prediction period. The data contain
-78,682 observations from 8,971 American companies between 1999 and 2018. Because
-firms appear in several years, the split assigns complete companies to the
-training and test samples.
-The comparison includes a majority-class baseline, Logistic Regression and
-regularized Logistic Regression variants, a Decision Tree, Random Forest,
-Gradient Boosting, and a PCA plus Logistic Regression extension. Because
-failures are rare, evaluation focuses on the failed class. Accuracy alone is
-misleading: the majority baseline reaches 92.5\% final-test accuracy but detects
-no failures. Ranking performance is evaluated mainly with PR-AUC, which is
-calculated as average precision in this project. Failed-class recall and F1 are evaluated at the default
-prediction rule, while threshold scenarios use validation predictions only.
-Logistic Regression has the highest failed recall among the key models but
-produces many false alarms. Random Forest has the numerically highest observed
-final-test PR-AUC and failed-class F1. Gradient Boosting has the highest
-balanced accuracy and was selected before the final test was examined because it
-had the highest validation PR-AUC. PCA retains
-much of the predictor variance but does not clearly improve validation
-performance. Overall, the models provide useful information for screening
-companies. However, the results are not causal, the models are not ready for
-real financial decisions, and no model performs best for every objective.
-\end{abstract}
-
-\clearpage
-\begingroup
-\small
-\setlength{\parskip}{0pt}
-\tableofcontents
-\endgroup
-\clearpage
 \pagenumbering{arabic}
 
 % -----------------------------------------------------------------------------
@@ -441,8 +414,8 @@ estimator does not have a direct class-weight argument, so balanced observation
 weights are supplied during fitting.
 
 The parameter grids are kept small. They include the main settings that control
-model complexity without requiring a very large search. A compact specification
-table is provided in Appendix~\ref{app:model-results}.
+model complexity without requiring a very large search. The complete notebook
+workflow and saved output tables document the exact selected specifications.
 
 \subsection{PCA extension}
 
@@ -755,8 +728,7 @@ while the logistic model is easier to explain in financial terms.
 The PCA analysis examines whether the 18 standardized financial variables can
 be reduced without losing much predictive information. The first few components
 explain a large share of predictor variation. Two components retain 83.8\% of
-total variance, five retain 93.9\%, and ten retain 99.2\%. The full
-explained-variance curve is provided in Appendix~\ref{app:pca}.
+total variance, five retain 93.9\%, and ten retain 99.2\%.
 
 A high explained variance does not automatically mean strong classification
 performance.
@@ -929,209 +901,9 @@ financial costs and review capacity.
 % -----------------------------------------------------------------------------
 % References
 % -----------------------------------------------------------------------------
-\clearpage
 \bibliographystyle{apalike}
 \IfFileExists{references.bib}
   {\bibliography{references}}
   {\section*{References}}
-
-% -----------------------------------------------------------------------------
-% Appendix
-% -----------------------------------------------------------------------------
-\clearpage
-\appendix
-
-\section{Additional Model Results}
-\label{app:model-results}
-
-Table~\ref{tab:model-settings} summarizes the model settings used in the
-comparison.
-
-\begin{table}[H]
-  \centering
-  \caption{Model specifications used in the final-test comparison}
-  \label{tab:model-settings}
-  \small
-  \begin{tabular}{p{0.27\textwidth}p{0.58\textwidth}}
-    \toprule
-    Model & Specification \\
-    \midrule
-    Majority baseline & Always predicts the most common class \\
-    Logistic Regression & L2 penalty, $C=1.0$, balanced class weights \\
-    L1 Logistic Regression & L1 penalty, $C=0.1$, balanced class weights \\
-    L2 Logistic Regression & L2 penalty, $C=0.1$, balanced class weights \\
-    Decision Tree & Maximum depth 5; minimum leaf size 50 \\
-    Random Forest & 300 trees; unrestricted depth; minimum leaf size 50;
-      $\sqrt{p}$ candidate predictors per split \\
-    Gradient Boosting & 150 trees; learning rate 0.05; maximum depth 3;
-      minimum leaf size 100 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-Table~\ref{tab:all-test-results} gives the complete final-test comparison,
-including the regularized logistic models and the single Decision Tree. The
-regularized Logistic Regression models produce results that are very close to
-the main Logistic Regression model. The Decision Tree has higher failed-class
-recall than Random Forest, but its ranking performance is weaker and it
-produces more false positives. The source is
-\texttt{outputs/tables/final\_test\_metrics.csv}.
-
-\begin{table}[H]
-  \centering
-  \caption{Complete final-test model comparison}
-  \label{tab:all-test-results}
-  \small
-  \resizebox{\textwidth}{!}{%
-  \begin{tabular}{lrrrrrrr}
-    \toprule
-    Model & Accuracy & Balanced acc. & ROC-AUC & PR-AUC & Failed precision & Failed recall & Failed F1 \\
-    \midrule
-    Majority baseline       & 0.925 & 0.500 & 0.500 & 0.075 & 0.000 & 0.000 & 0.000 \\
-    Logistic Regression     & 0.360 & 0.601 & 0.690 & 0.153 & 0.095 & 0.884 & 0.172 \\
-    L1 Logistic Regression  & 0.358 & 0.602 & 0.692 & 0.154 & 0.095 & 0.889 & 0.172 \\
-    L2 Logistic Regression  & 0.358 & 0.602 & 0.692 & 0.153 & 0.095 & 0.888 & 0.172 \\
-    Decision Tree           & 0.600 & 0.581 & 0.633 & 0.122 & 0.102 & 0.558 & 0.173 \\
-    Random Forest           & 0.814 & 0.612 & 0.699 & 0.159 & 0.168 & 0.376 & 0.232 \\
-    Gradient Boosting       & 0.679 & 0.638 & 0.688 & 0.158 & 0.132 & 0.590 & 0.216 \\
-    \bottomrule
-  \end{tabular}%
-  }
-\end{table}
-
-Figure~\ref{fig:test-roc} shows the ROC curves for the three main models as an
-additional comparison. ROC curves compare how well the models rank observations
-across different thresholds, while the diagonal line represents random
-classification.
-However, because failed firms are rare in this application, the main discussion
-emphasizes precision--recall performance and minority-class operating metrics.
-These measures show the false-alarm burden more clearly than the false-positive
-rate alone.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.74\textwidth]{roc_curves_key_models.png}
-  \caption{Supplementary final-test ROC curves for the key models. The legend
-    reports ROC-AUC values. The figure is included as a secondary ranking view;
-    the main analysis emphasizes precision--recall performance because failed
-    firms are rare.}
-  \label{fig:test-roc}
-\end{figure}
-
-\section{Threshold Analysis}
-\label{app:thresholds}
-
-Table~\ref{tab:selected-thresholds} shows the validation-based threshold
-scenarios discussed in Section~\ref{sec:evaluation}. For each rule, the table
-also reports the share of validation observations that would be labelled failed.
-The large increase in this share under the 80\% recall rule shows that a high
-failure-detection target would require many more cases to be reviewed. These
-are validation-based examples only and were not used to change the final test
-comparison. Figure~\ref{fig:threshold-tradeoff} shows how validation precision,
-recall, and failed-class F1 change across the tested thresholds.
-
-\begin{table}[H]
-  \centering
-  \caption{Validation-based threshold scenarios from the internal validation sample}
-  \label{tab:selected-thresholds}
-  \scriptsize
-  \begin{tabular}{llrrrrr}
-    \toprule
-    Model & Rule & Threshold & Precision & Recall & F1 & Predicted failed share \\
-    \midrule
-    Gradient Boosting & Maximum F1       & 0.68 & 0.212 & 0.220 & 0.216 & 0.068 \\
-                      & Recall $\geq 0.60$ & 0.48 & 0.109 & 0.613 & 0.185 & 0.370 \\
-                      & Recall $\geq 0.80$ & 0.37 & 0.090 & 0.823 & 0.162 & 0.599 \\
-    \addlinespace
-    Logistic Regression & Maximum F1       & 0.53 & 0.190 & 0.320 & 0.239 & 0.110 \\
-                        & Recall $\geq 0.60$ & 0.52 & 0.088 & 0.682 & 0.156 & 0.507 \\
-                        & Recall $\geq 0.80$ & 0.50 & 0.082 & 0.846 & 0.149 & 0.678 \\
-    \addlinespace
-    Random Forest & Maximum F1       & 0.57 & 0.187 & 0.265 & 0.219 & 0.093 \\
-                  & Recall $\geq 0.60$ & 0.37 & 0.115 & 0.616 & 0.194 & 0.351 \\
-                  & Recall $\geq 0.80$ & 0.27 & 0.100 & 0.812 & 0.178 & 0.532 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.70\textwidth]{validation_threshold_tradeoff.png}
-  \caption{Validation precision, recall, and failed-class F1 across candidate
-    thresholds. The figure uses validation predictions only.}
-  \label{fig:threshold-tradeoff}
-\end{figure}
-
-\section{PCA Diagnostics}
-\label{app:pca}
-
-Figure~\ref{fig:pca-variance} shows how much of the variation in the
-standardized predictors is explained as more principal components are added.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.78\textwidth]{pca_explained_variance.png}
-  \caption{Cumulative explained variance from PCA on the standardized
-    financial predictors. Results use the internal validation design.}
-  \label{fig:pca-variance}
-\end{figure}
-
-Figure~\ref{fig:pca-metric-comparison} adds to the PCA results in
-Section~\ref{sec:pca-results}. It shows that classification performance
-improves as more components are added and then changes only slightly. The full numerical
-results are stored in \texttt{outputs/tables/pca\_logistic\_results.csv}, while
-component weights are stored in
-\texttt{outputs/tables/pca\_component\_loadings.csv}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.88\textwidth]{pca_logistic_metric_comparison.png}
-  \caption{Internal validation metrics for PCA plus Logistic Regression across
-    the tested component counts.}
-  \label{fig:pca-metric-comparison}
-\end{figure}
-
-\section{Reproducibility and Code Structure}
-\label{app:reproducibility}
-
-The simplified academic repository uses a six-notebook workflow and fixed
-random seeds. Paths, feature names, split settings, model grids, validation
-logic, threshold analysis, PCA, interpretation, and paper-output generation are
-visible inside the numbered notebooks. The notebooks are executed from
-\texttt{01\_data\_audit\_and\_preparation.ipynb} through
-\texttt{06\_generate\_paper\_assets.ipynb}. Visible assertions in the notebooks
-check the main validity conditions, including target encoding, predictor
-definition, company-level split disjointness, model names, probability bounds,
-confusion-matrix consistency, threshold validity, PCA component validity, and
-paper-output existence.
-
-From the repository root, the complete notebook workflow can be run with:
-
-\begin{verbatim}
-for notebook in notebooks/0*.ipynb; do
-    jupyter nbconvert --to notebook --execute --inplace \
-        --ExecutePreprocessor.timeout=900 "$notebook"
-done
-\end{verbatim}
-
-The notebooks create the processed data, result tables, and figures in the
-correct order. Generated analysis artifacts are kept under
-\texttt{data/processed/} and \texttt{outputs/}. The \texttt{outputs/paper/}
-folder contains simplified paper-ready tables and figures generated from the
-canonical output files. Notebook~06 does not train models or change analytical
-results.
-
-The main result files used in the paper are listed below. Keeping these tables
-with the figures makes it possible to trace each reported value back to a saved
-project output.
-
-\begin{itemize}
-  \item \path{final_test_metrics.csv} and
-    \path{final_test_classification_reports.csv};
-  \item \path{selected_thresholds.csv};
-  \item \path{logistic_coefficients.csv} and
-    \path{tree_feature_importance.csv};
-  \item \path{pca_logistic_results.csv}.
-\end{itemize}
 
 \end{document}
