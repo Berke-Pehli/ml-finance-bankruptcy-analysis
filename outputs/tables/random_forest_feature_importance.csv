@@ -1,0 +1,19 @@
+feature,importance,readable_name,description
+X8,0.10647800873282462,Market value,Market capitalization or market value of the publicly traded company.
+X6,0.08559729101968773,Net income,Profit after expenses and costs have been deducted from revenue.
+X3,0.06499358732937363,Depreciation and amortization,Depreciation of tangible assets and amortization of intangible assets.
+X1,0.06244991330202651,Current assets,"Assets expected to be sold, converted into cash, or used within one year."
+X11,0.0620690140748499,Total long-term debt,Debt obligations due after more than one year.
+X15,0.060380107414865776,Retained earnings,Accumulated profits retained in the business after dividends and losses.
+X17,0.056897825207919694,Total liabilities,Total debts and obligations owed to outside parties.
+X7,0.05672730049371635,Total receivables,Money owed to the firm by customers for delivered goods or services.
+X5,0.05196569855087489,Inventory,Goods and raw materials held by the firm for production or sale.
+X2,0.05094379596180517,Cost of goods sold,Direct costs related to producing or selling the firm's goods and services.
+X13,0.048975237134014846,Gross profit,Profit after subtracting costs related to manufacturing and selling.
+X12,0.04798518580642449,EBIT,Earnings before interest and taxes.
+X18,0.04514132192929078,Total operating expenses,Expenses incurred through normal business operations.
+X14,0.04382729995572976,Total current liabilities,Short-term obligations due within one year.
+X10,0.04335568330343909,Total assets,Total assets owned or controlled by the company.
+X4,0.04124475892777512,EBITDA,"Earnings before interest, taxes, depreciation, and amortization."
+X9,0.035916891808292245,Net sales,"Gross sales minus returns, allowances, and discounts."
+X16,0.035051079047089276,Total revenue,Total income from sales before subtracting expenses.

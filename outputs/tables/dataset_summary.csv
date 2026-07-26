@@ -1,0 +1,12 @@
+measure,value
+Total company-year observations,"78,682"
+Unique companies,"8,971"
+Minimum year,1999
+Maximum year,2018
+Financial variables,18
+Failed observations,"5,220"
+Failed-observation share,6.6%
+Outer training observations,"62,988"
+Outer training companies,"7,176"
+Final test observations,"15,694"
+Final test companies,"1,795"

@@ -1,0 +1,5 @@
+model,accuracy,pr_auc,precision_failed,recall_failed,f1_failed
+Majority-class baseline,0.925,0.075,0.000,0.000,0.000
+Logistic Regression,0.361,0.151,0.095,0.879,0.171
+Decision Tree,0.607,0.131,0.113,0.616,0.190
+Random Forest,0.787,0.172,0.168,0.465,0.247

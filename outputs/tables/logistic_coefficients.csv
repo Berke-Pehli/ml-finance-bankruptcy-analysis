@@ -1,0 +1,19 @@
+feature,coefficient,absolute_coefficient,direction,readable_name,description
+X8,-2.461953637562844,2.461953637562844,lower predicted failure probability,Market value,Market capitalization or market value of the publicly traded company.
+X1,-2.02877858333982,2.02877858333982,lower predicted failure probability,Current assets,"Assets expected to be sold, converted into cash, or used within one year."
+X12,-0.9357062464261622,0.9357062464261622,lower predicted failure probability,EBIT,Earnings before interest and taxes.
+X14,0.9177195977682722,0.9177195977682722,higher predicted failure probability,Total current liabilities,Short-term obligations due within one year.
+X3,0.6596232185329026,0.6596232185329026,higher predicted failure probability,Depreciation and amortization,Depreciation of tangible assets and amortization of intangible assets.
+X4,-0.48786352907266134,0.48786352907266134,lower predicted failure probability,EBITDA,"Earnings before interest, taxes, depreciation, and amortization."
+X5,0.4733744374647398,0.4733744374647398,higher predicted failure probability,Inventory,Goods and raw materials held by the firm for production or sale.
+X13,0.43397936567125345,0.43397936567125345,higher predicted failure probability,Gross profit,Profit after subtracting costs related to manufacturing and selling.
+X11,0.3936976328382263,0.3936976328382263,higher predicted failure probability,Total long-term debt,Debt obligations due after more than one year.
+X15,-0.302506112566487,0.302506112566487,lower predicted failure probability,Retained earnings,Accumulated profits retained in the business after dividends and losses.
+X7,0.24291224406156658,0.24291224406156658,higher predicted failure probability,Total receivables,Money owed to the firm by customers for delivered goods or services.
+X10,0.20117523880368027,0.20117523880368027,higher predicted failure probability,Total assets,Total assets owned or controlled by the company.
+X2,-0.19455744047745535,0.19455744047745535,lower predicted failure probability,Cost of goods sold,Direct costs related to producing or selling the firm's goods and services.
+X6,-0.162093836769046,0.162093836769046,lower predicted failure probability,Net income,Profit after expenses and costs have been deducted from revenue.
+X18,0.11389240855272877,0.11389240855272877,higher predicted failure probability,Total operating expenses,Expenses incurred through normal business operations.
+X17,-0.05124506744795693,0.05124506744795693,lower predicted failure probability,Total liabilities,Total debts and obligations owed to outside parties.
+X9,0.0012700923030824,0.0012700923030824,higher predicted failure probability,Net sales,"Gross sales minus returns, allowances, and discounts."
+X16,0.0012700923030824,0.0012700923030824,higher predicted failure probability,Total revenue,Total income from sales before subtracting expenses.
